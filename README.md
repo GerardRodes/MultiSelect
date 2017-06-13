@@ -20,7 +20,7 @@ Transform a select tag into a MultiSelect, which lets choose multiple options
 </script>
 ```
 
-## Parameters
-MultiSelect(element, defaultOption)
-**element**: Select element
-**defaultOption**: Text for the default option, by default it's "Choose an option"
+## Parameters  
+MultiSelect(element, defaultOption)  
+**element**: Select element  
+**defaultOption**: Text for the default option, by default it's "Choose an option"  
