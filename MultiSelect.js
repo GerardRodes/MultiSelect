@@ -1,11 +1,14 @@
-function Display(value, multiSelect){
+function Display(value, text, multiSelect){
   var displayItem = this
   this.value = value
+  this.text = text
   this.multiSelect = multiSelect
   this.element = createElement('div', {class: 'item-display'})
-  this.input = createElement('input', {type: 'text', readonly: 'readonly', value: value})
+  this.text = createElement('span', {class: 'item-text', innerText: text})
+  this.input = createElement('input', {type: 'hidden', readonly: 'readonly', value: value})
   this.buttonRemove = createElement('button', {class:'remove-value', innerHTML: '-'})
 
+  this.element.appendChild(this.text)
   this.element.appendChild(this.input)
   this.element.appendChild(this.buttonRemove)
 
@@ -62,12 +65,9 @@ function MultiSelect(element, defaultOption){
           multiSelect.element.appendChild(option)
 
           var currentIndex = multiSelect.element.children.length - 1,
-              originalIndex = multiSelect.options.indexOf(option)
+              originalIndex = multiSelect.options.indexOf(option) + 1
           //position the option in his original position
-          while (currentIndex > originalIndex && currentIndex > 1) {
-            multiSelect.element.insertBefore(multiSelect.element.children[currentIndex], multiSelect.element.children[currentIndex-1])
-            currentIndex--
-          }
+          multiSelect.element.insertBefore(multiSelect.element.children[currentIndex], multiSelect.element.children[originalIndex])
         }
         if (filteredChildsDisplay.length > 0){
           //remove from multiSelect.displayItems
@@ -86,7 +86,7 @@ function MultiSelect(element, defaultOption){
           //Display item doesn't exists on dom
           var displayItem = multiSelect.getDisplayItem(option.value)
           if (!displayItem) {
-            displayItem = new Display(option.value, multiSelect)
+            displayItem = new Display(option.value, (option.innerText ? option.innerText : option.innerHTML) , multiSelect)
             multiSelect.displayItems.push(displayItem)
           }
           multiSelect.display.appendChild(displayItem.element)
