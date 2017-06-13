@@ -24,3 +24,8 @@ Transform a select tag into a MultiSelect, which lets choose multiple options
 MultiSelect(element, defaultOption)  
 **element**: Select element  
 **defaultOption**: Text for the default option, by default it's "Choose an option"  
+
+to get the value you can do it form de attribute `value` from the created instance or a input element created inside the wrapper:
+```html
+  <input type="hidden" name="multiselect-{name of you select}" value="value1;value2;value3">
+```
