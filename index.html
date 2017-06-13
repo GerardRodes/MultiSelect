@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>multiselect</title>
+</head>
+<body>
+
+  <select name="feels">
+    <option value="happy" >happy</option>
+    <option value="angry" >angry</option>
+    <option value="fear" >fear</option>
+    <option value="joy" >joy</option>
+    <option value="excited" >excited</option>
+  </select>
+
+  <script type="text/javascript" src="MultiSelect.min.js"></script>
+  <script type="text/javascript">
+    
+    var selects = document.getElementsByTagName('select')
+    forEach(selects, function (node) {
+      new MultiSelect(node, 'Selecciona una opció')
+    });
+
+  </script>
+
+</body>
+</html>
