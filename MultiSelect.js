@@ -136,7 +136,7 @@ function MultiSelect(element, defaultOption){
   this.wrapper.appendChild(this.display)
   this.wrapper.appendChild(this.selectWrapper)
   this.element.insertBefore(
-    createElement('option',{text: defaultOption ? defaultOption : 'Choose an option', value: ''}),
+    createElement('option',{innerText: defaultOption ? defaultOption : 'Choose an option', value: ''}),
     this.element.children[0]
   )
   this.value = ''
