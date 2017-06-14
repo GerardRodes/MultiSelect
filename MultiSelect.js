@@ -18,7 +18,7 @@ function Display(value, text, multiSelect){
   }
 }
 
-function MultiSelect(element, defaultOption){
+function MultiSelect(element, defaultOption, defaultValue, insertDefaultOption){
   this.selectedOption = function(){
     return multiSelect.element.children[ multiSelect.element.selectedIndex ]
   }
@@ -95,7 +95,7 @@ function MultiSelect(element, defaultOption){
       }
     })
 
-    multiSelect.value = multiSelect.selectedValues.join(';')
+    multiSelect.value = multiSelect.selectedValues.length ? multiSelect.selectedValues.join(multiSelect.SEPARATOR) : this.DEFAULT_VALUE
     multiSelect.output.value = multiSelect.value
     multiSelect.element.selectedIndex = 0
   }
@@ -118,15 +118,18 @@ function MultiSelect(element, defaultOption){
   }
 
   var multiSelect = this
+  this.DEFAULT_VALUE = '--NOVALUE--'
+  this.SEPARATOR = ';'
   this.element = element
+  this.initValues = this.element.getAttribute('data-init-values')
   this.created = new Date()
   this.id      = 'multiselect-' + (this.element.getAttribute('name') ? this.element.getAttribute('name') : this.element.getAttribute('id'))
-  this.wrapper = createElement('div', {class:'wrapper-multiselect', id: this.id + '-output'})
+  this.wrapper = createElement('div', {class:'wrapper-multiselect'})
   this.display = createElement('div', {class:'display'})
-  this.output = createElement('input', {type:'hidden', name:this.id})
+  this.output = createElement('input', {type:'hidden', name:this.element.getAttribute('name'), value: this.DEFAULT_VALUE, id: this.element.getAttribute('id')})
   this.selectWrapper = createElement('div', {class:'wrapper-select'})
   this.buttonAdd = createElement('button', {class:'add-value', innerHTML: '+'})
-  this.selectedValues = []
+  this.selectedValues = this.initValues ? this.initValues.split(this.SEPARATOR) : []
   this.options = this.getChildrenOptions()
   this.displayItems = []
 
@@ -136,22 +139,30 @@ function MultiSelect(element, defaultOption){
   this.wrapper.appendChild(this.output)
   this.wrapper.appendChild(this.display)
   this.wrapper.appendChild(this.selectWrapper)
-  this.element.insertBefore(
-    createElement('option',{innerText: defaultOption ? defaultOption : 'Choose an option', value: ''}),
-    this.element.children[0]
-  )
-  this.value = ''
+  if (insertDefaultOption != false) {
+    this.element.insertBefore(
+      createElement('option',{innerText: defaultOption ? defaultOption : 'Choose an option', value: this.DEFAULT_VALUE, selected: 'selected'}),
+      this.element.children[0]
+    )
+  } else {
+    this.getChildrenOptions(function(childOption){ return childOption.value == multiSelect.DEFAULT_VALUE })[0].innerText = defaultOption
+  }
+  this.value = this.DEFAULT_VALUE
 
 
   this.buttonAdd.onclick = function(e){
     e.preventDefault()
     var selectedOption = multiSelect.selectedOption()
-    if (selectedOption.value && selectedOption.value != '') {
+    if (selectedOption.value && selectedOption.value != this.DEFAULT_VALUE) {
       multiSelect.addValue(selectedOption.value)
     }
   }
 
   this.element.selectedIndex = 0
+  this.element.value = this.DEFAULT_VALUE
+  this.element.setAttribute('name', this.id)
+  this.element.setAttribute('id', this.id)
+  this.update()
 }
 
 
