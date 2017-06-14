@@ -13,6 +13,7 @@ function Display(value, text, multiSelect){
   this.element.appendChild(this.buttonRemove)
 
   this.buttonRemove.onclick = function(e){
+    e.preventDefault()
     displayItem.multiSelect.removeValue(displayItem.value)
   }
 }
@@ -143,6 +144,7 @@ function MultiSelect(element, defaultOption){
 
 
   this.buttonAdd.onclick = function(e){
+    e.preventDefault()
     var selectedOption = multiSelect.selectedOption()
     if (selectedOption.value && selectedOption.value != '') {
       multiSelect.addValue(selectedOption.value)
