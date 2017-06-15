@@ -118,7 +118,7 @@ function MultiSelect(element, defaultOption, defaultValue, insertDefaultOption){
   }
 
   var multiSelect = this
-  this.DEFAULT_VALUE = '--NOVALUE--'
+  this.DEFAULT_VALUE = defaultValue ? defaultValue : '--NOVALUE--'
   this.SEPARATOR = ';'
   this.element = element
   this.initValues = this.element.getAttribute('data-init-values')
@@ -153,7 +153,7 @@ function MultiSelect(element, defaultOption, defaultValue, insertDefaultOption){
   this.buttonAdd.onclick = function(e){
     e.preventDefault()
     var selectedOption = multiSelect.selectedOption()
-    if (selectedOption.value && selectedOption.value != this.DEFAULT_VALUE) {
+    if (selectedOption.value && selectedOption.value != multiSelect.DEFAULT_VALUE) {
       multiSelect.addValue(selectedOption.value)
     }
   }
