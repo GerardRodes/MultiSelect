@@ -29,3 +29,9 @@ to get the value you can do it form the attribute `value` from the created insta
 ```html
   <input type="hidden" name="multiselect-{name of you select}" value="value1;value2;value3">
 ```
+
+You can initilize the Multi Select to some values adding the attribute `data-init-value` to the `select` element.
+```html
+<select data-init-values="14;8;9">
+</select>
+```
