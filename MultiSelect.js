@@ -26,7 +26,7 @@ function MultiSelect(element, defaultOption, defaultValue, insertDefaultOption){
   this.addValue = function(option){
     var value = option.value ? option.value : option,
         values = value.split(multiSelect.SEPARATOR)
-    $.each(values, function(i, value){
+    forEach(values, function(value){
       if (multiSelect.selectedValues.indexOf(value) == -1) {
         var exists = false
         multiSelect.options.forEach(function(validOption){
@@ -45,7 +45,7 @@ function MultiSelect(element, defaultOption, defaultValue, insertDefaultOption){
   this.removeValue = function(option){
     var value = option.value ? option.value : option,
         values = value.split(multiSelect.SEPARATOR)
-    $.each(values, function(i, value){
+    forEach(values, function(value){
       var valueIndex = multiSelect.selectedValues.indexOf(value)
       if (valueIndex != -1) {
         multiSelect.selectedValues.splice(valueIndex, 1)
@@ -66,7 +66,7 @@ function MultiSelect(element, defaultOption, defaultValue, insertDefaultOption){
       })
       var values = option.value.split(multiSelect.SEPARATOR),
           isSelected = false
-      $.each(values, function(i, value){
+      forEach(values, function(value){
         if (multiSelect.selectedValues.indexOf(value) != -1) {
           isSelected = true
         }
